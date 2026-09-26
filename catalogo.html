@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
+<title>Catálogo | Alma Boho</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+}
+
+.logo {
+    text-align: center;
+    line-height: 1;
+}
+
+.alma {
+    font-family: "Allura", cursive;
+    font-size: 85px;
+    font-weight: normal;
+    line-height: 0.8;
+    margin-bottom: 12px;
+}
+
+.boho {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 8px;
+    margin-left: 8px;
+}
+
+header p {
+    margin-top: 8px;
+    color: #ccc;
+}
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+nav {
+    background: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav a {
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.carrito-nav {
+    color: #222;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+nav a:hover {
+    opacity: 0.6;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+.catalogo {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 18px;
+}
+
+.titulo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.titulo h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.titulo p {
+    color: #777;
+}
+
+/* =========================
+   FILTROS
+========================= */
+
+.filtros {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.filtros-titulo {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.filtros-controles {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filtro {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.producto-info {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.boton-limpiar {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #111;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: 44px;
+}
+
+.boton-limpiar:hover {
+    opacity: 0.85;
+}
+
+.sin-resultados {
+    text-align: center;
+    color: #777;
+    padding: 35px;
+    grid-column: 1 / -1;
+}
+
+/* =========================
+   PRODUCTOS
+========================= */
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.producto {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.producto img {
+    width: 100%;
+    height: 230px;
+    object-fit: contain;
+    background: #f5f5f5;
+    cursor: pointer;
+    display: block;
+}
+
+.producto img:hover {
+    opacity: 0.9;
+}
+
+.producto-info {
+    padding: 16px;
+}
+
+.producto h3 {
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.codigo {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.precio {
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.precio-anterior {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 14px;
+    margin-right: 8px;
+    font-weight: normal;
+}
+
+.datos {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.talles {
+    margin-top: 15px;
+}
+
+.talles p {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.talle {
+    display: inline-block;
+    background: #111;
+    color: white;
+    text-decoration: none;
+    padding: 8px 11px;
+    border-radius: 6px;
+    margin: 3px;
+    font-weight: bold;
+    font-size: 14px;
+    min-width: 44px;
+    min-height: 44px;
+    text-align: center;
+}
+
+.talle:hover {
+    opacity: 0.8;
+}
+
+.stock {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #555;
+}
+
+.cargando {
+    text-align: center;
+    color: #777;
+    padding: 30px;
+}
+
+.error {
+    text-align: center;
+    color: #b00020;
+    padding: 30px;
+}
+
+/* =========================
+   FOTO GRANDE
+========================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal img {
+    max-width: 95%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.cerrar {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* =========================
+   CONTACTO
+========================= */
+
+.contacto {
+    background: white;
+    text-align: center;
+    padding: 45px 20px;
+    margin-top: 20px;
+}
+
+.contacto h2 {
+    margin-bottom: 12px;
+}
+
+.contacto p {
+    color: #666;
+    margin-bottom: 22px;
+}
+
+.boton {
+    display: inline-block;
+    background: #111;
+    color: white;
+    padding: 13px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.instagram {
+    display: inline-block;
+    margin-top: 20px;
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+footer p {
+    color: #aaa;
+    margin-top: 15px;
+}
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 500px) {
+
+    .productos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .producto img {
+        height: 170px;
+    }
+
+    .producto-info {
+        padding: 12px;
+    }
+
+    .producto h3 {
+        font-size: 16px;
+    }
+
+    .precio {
+        font-size: 18px;
+    }
+
+    .filtros-controles {
+        flex-direction: column;
+    }
+
+    .filtro,
+    .boton-limpiar {
+        width: 100%;
+    }
+
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
+    nav {
+        gap: 6px;
+        padding: 12px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    header {
+        padding: 20px 12px;
+    }
+
+    .alma {
+        font-size: 76px;
+    }
+
+    .productos {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+    <div class="alma">Alma</div>
+    <div class="boho">BOHO</div>
+</div>
+
+<p>Zapatos • Sandalias • Botas</p>
+
+</header>
+
+
+<nav>
+
+<a href="index.html">Inicio</a>
+
+<a href="catalogo.html">🛍️ Catálogo</a>
+
+<a href="ofertas.html">🔥 Ofertas</a>
+
+<a href="nuevo.html">🆕 Nuevo catálogo</a>
+
+<a href="index.html#contacto">Contacto</a>
+
+<a href="carrito.html" class="carrito-nav">
+    🛒 Carrito (<span id="cantidadCarrito">0</span>)
+</a>
+
+</nav>
+
+
+<section class="catalogo">
+
+<div class="titulo">
+
+<h2>🛍️ Nuestro catálogo</h2>
+
+<p>Consultá talles, colores y disponibilidad.</p>
+
+</div>
+
+
+<div class="filtros">
+
+    <div class="filtros-titulo">
+        🔎 Filtrar productos
+    </div>
+
+    <div class="filtros-controles">
+
+        <input
+            type="search"
+            id="busquedaProducto"
+            class="filtro"
+            placeholder="Buscar producto"
+        >
+
+        <select class="filtro" id="filtroTalle">
+            <option value="">Todos los talles</option>
+        </select>
+
+        <select class="filtro" id="filtroColor">
+            <option value="">Todos los colores</option>
+        </select>
+
+        <select class="filtro" id="filtroPrecio">
+
+            <option value="">
+                Todos los precios
+            </option>
+
+            <option value="0-20000">
+                Hasta $20.000
+            </option>
+
+            <option value="20000-30000">
+                $20.000 - $30.000
+            </option>
+
+            <option value="30000-50000">
+                $30.000 - $50.000
+            </option>
+
+            <option value="50000-999999999">
+                Más de $50.000
+            </option>
+
+        </select>
+
+        <button
+            class="boton-limpiar"
+            onclick="limpiarFiltros()"
+        >
+            🔄 Limpiar filtros
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="productos" id="listaProductos">
+
+<div class="cargando">
+    Cargando productos...
+</div>
+
+</div>
+
+</section>
+
+
+<section class="contacto">
+
+<h2>¿Te interesa algún producto?</h2>
+
+<p>
+Consultanos por disponibilidad, talles y colores.
+</p>
+
+<a
+href="https://wa.me/5491140615513"
+class="boton"
+target="_blank"
+>
+💬 WHATSAPP
+</a>
+
+<br>
+
+<a
+href="https://www.instagram.com/almaboho.arg/"
+class="instagram"
+target="_blank"
+>
+📸 Instagram
+</a>
+
+</section>
+
+
+<footer>
+
+<h3>
+ALMA BOHO
+</h3>
+
+<p>
+© 2026 Alma Boho
+</p>
+
+</footer>
+
+
+<div
+class="modal"
+id="modalFoto"
+onclick="cerrarFoto(event)"
+>
+
+<span
+class="cerrar"
+onclick="cerrarFoto(event)"
+>
+&times;
+</span>
+
+<img
+id="fotoGrande"
+src=""
+alt="Producto"
+>
+
+</div>
+
+
+<script>
+
+let productosTodos = [];
+
+
+/* =========================
+   FOTO GRANDE
+========================= */
+
+function abrirFoto(src) {
+
+    document.getElementById("fotoGrande").src = src;
+
+    document.getElementById("modalFoto").style.display = "flex";
+
+}
+
+
+function cerrarFoto(event) {
+
+    if (
+        !event ||
+        event.target.id === "modalFoto" ||
+        event.target.className === "cerrar"
+    ) {
+
+        document.getElementById("modalFoto").style.display = "none";
+
+    }
+
+}
+
+
+/* =========================
+   CREAR TARJETA
+========================= */
+
+function crearTarjeta(producto) {
+
+    const talles = producto.Talles || {};
+
+    const listaTalles =
+        Object.entries(talles);
+
+    let botonesTalles = "";
+
+    listaTalles.forEach(([talle, cantidad]) => {
+
+        if (Number(cantidad) > 0) {
+
+            const mensaje =
+                `Hola, quiero consultar por el ${producto.Nombre} ${producto.Color}, talle ${talle}.`;
+
+            const whatsapp =
+                "https://wa.me/5491140615513?text=" +
+                encodeURIComponent(mensaje);
+
+            botonesTalles += `
+
+                <a
+                    class="talle"
+                    href="${whatsapp}"
+                    target="_blank"
+                >
+                    ${talle}
+                </a>
+
+            `;
+
+        }
+
+    });
+
+
+    let stockTexto = "";
+
+    if (listaTalles.length > 0) {
+
+        stockTexto =
+            listaTalles
+
+            .filter(
+                ([talle, cantidad]) =>
+                Number(cantidad) > 0
+            )
+
+            .map(
+                ([talle, cantidad]) =>
+                `${talle} (${cantidad})`
+            )
+
+            .join(" · ");
+
+    }
+
+
+    const precio =
+        Number(producto.Precio)
+        .toLocaleString("es-AR");
+
+
+    const tarjeta =
+        document.createElement("div");
+
+    tarjeta.className =
+        "producto";
+
+
+    tarjeta.innerHTML = `
+
+        <a href="producto.html?id=${producto.id}">
+
+            <img
+                src="${producto.Foto}"
+                alt="${producto.Nombre} ${producto.Color}"
+            >
+
+        </a>
+
+        <div class="producto-info">
+
+            <h3>
+                ${producto.Nombre}
+            </h3>
+
+            <div class="codigo">
+                Código: ${producto.Codigo}
+            </div>
+
+            <div class="precio">
+
+                ${
+                    producto.Oferta && producto.PrecioAnterior
+                    ? `<span class="precio-anterior">$${Number(producto.PrecioAnterior).toLocaleString("es-AR")}</span>`
+                    : ""
+                }
+
+                $${precio}
+
+            </div>
+
+            <div class="datos">
+
+                <strong>Color:</strong>
+                ${producto.Color}
+
+            </div>
+
+            <div class="talles">
+
+                <p>
+                    Elegí tu talle:
+                </p>
+
+                ${botonesTalles}
+
+            </div>
+
+            <div class="stock">
+
+                Stock: ${stockTexto || "Sin stock"}
+
+            </div>
+
+        </div>
+
+    `;
+
+    return tarjeta;
+
+}
+
+
+/* =========================
+   MOSTRAR PRODUCTOS
+========================= */
+
+function mostrarProductos(productos) {
+
+    const contenedor =
+        document.getElementById("listaProductos");
+
+    contenedor.innerHTML = "";
+
+
+    if (!productos || productos.length === 0) {
+
+        contenedor.innerHTML = `
+
+            <div class="sin-resultados">
+
+                😕 No encontramos productos
+                con esos filtros.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    productos.forEach(producto => {
+
+        contenedor.appendChild(
+            crearTarjeta(producto)
+        );
+
+    });
+
+}
+
+
+/* =========================
+   PREPARAR FILTROS
+========================= */
+
+function prepararFiltros() {
+
+    const filtroTalle =
+        document.getElementById("filtroTalle");
+
+    const filtroColor =
+        document.getElementById("filtroColor");
+
+    const talles = new Set();
+
+    const colores = new Set();
+
+
+    productosTodos.forEach(producto => {
+
+        const tallesProducto =
+            producto.Talles || {};
+
+        Object.entries(tallesProducto).forEach(
+            ([talle, cantidad]) => {
+
+                if (Number(cantidad) > 0) {
+
+                    talles.add(talle);
+
+                }
+
+            }
+        );
+
+
+        if (producto.Color) {
+
+            colores.add(
+                String(producto.Color).trim()
+            );
+
+        }
+
+    });
+
+
+    [...talles]
+
+        .sort(
+            (a, b) =>
+            Number(a) - Number(b)
+        )
+
+        .forEach(talle => {
+
+            const opcion =
+                document.createElement("option");
+
+            opcion.value =
+                talle;
+
+            opcion.textContent =
+                `Talle ${talle}`;
+
+            filtroTalle.appendChild(
+                opcion
+            );
+
+        });
+
+
+    [...colores]
+
+        .sort()
+
+        .forEach(color => {
+
+            const opcion =
+                document.createElement("option");
+
+            opcion.value =
+                color;
+
+            opcion.textContent =
+                color;
+
+            filtroColor.appendChild(
+                opcion
+            );
+
+        });
+
+
+    filtroTalle.addEventListener(
+        "change",
+        aplicarFiltros
+    );
+
+
+    filtroColor.addEventListener(
+        "change",
+        aplicarFiltros
+    );
+
+    document
+        .getElementById("busquedaProducto")
+        .addEventListener(
+            "input",
+            aplicarFiltros
+        );
+
+
+    document
+        .getElementById("filtroPrecio")
+        .addEventListener(
+            "change",
+            aplicarFiltros
+        );
+
+}
+
+
+/* =========================
+   APLICAR FILTROS
+========================= */
+
+function aplicarFiltros() {
+
+    const busqueda =
+        document.getElementById(
+            "busquedaProducto"
+        ).value
+        .toLowerCase()
+        .trim();
+
+    const talle =
+        document.getElementById(
+            "filtroTalle"
+        ).value;
+
+
+    const color =
+        document.getElementById(
+            "filtroColor"
+        ).value;
+
+
+    const precio =
+        document.getElementById(
+            "filtroPrecio"
+        ).value;
+
+
+    const productosFiltrados =
+        productosTodos.filter(producto => {
+
+            const tieneNombre =
+                String(producto.Nombre || "")
+                .toLowerCase()
+                .includes(busqueda);
+
+            let tieneTalle = true;
+
+
+            if (talle !== "") {
+
+                const talles =
+                    producto.Talles || {};
+
+
+                tieneTalle =
+                    Object.entries(talles)
+                    .some(
+                        ([t, cantidad]) =>
+
+                            String(t) ===
+                            String(talle)
+
+                            &&
+
+                            Number(cantidad) > 0
+                    );
+
+            }
+
+
+            let tieneColor = true;
+
+
+            if (color !== "") {
+
+                tieneColor =
+                    String(producto.Color)
+                    .toLowerCase()
+                    .trim()
+
+                    ===
+
+                    String(color)
+                    .toLowerCase()
+                    .trim();
+
+            }
+
+
+            let tienePrecio = true;
+
+
+            if (precio !== "") {
+
+                const partes =
+                    precio.split("-");
+
+
+                const minimo =
+                    Number(partes[0]);
+
+
+                const maximo =
+                    Number(partes[1]);
+
+
+                const precioProducto =
+                    Number(producto.Precio);
+
+
+                tienePrecio =
+                    precioProducto >= minimo
+                    &&
+                    precioProducto <= maximo;
+
+            }
+
+
+            return (
+                tieneNombre
+                &&
+                tieneTalle
+                &&
+                tieneColor
+                &&
+                tienePrecio
+            );
+
+        });
+
+
+    mostrarProductos(
+        productosFiltrados
+    );
+
+}
+
+
+/* =========================
+   LIMPIAR FILTROS
+========================= */
+
+function limpiarFiltros() {
+
+    document.getElementById(
+        "busquedaProducto"
+    ).value = "";
+
+    document.getElementById(
+        "filtroTalle"
+    ).value = "";
+
+    document.getElementById(
+        "filtroColor"
+    ).value = "";
+
+    document.getElementById(
+        "filtroPrecio"
+    ).value = "";
+
+    mostrarProductos(
+        productosTodos
+    );
+
+}
+
+
+/* =========================
+   CARGAR PRODUCTOS
+========================= */
+
+async function cargarProductos() {
+
+    const contenedor =
+        document.getElementById(
+            "listaProductos"
+        );
+
+
+    const { data, error } =
+        await supabaseClient
+
+        .from("Productos")
+
+        .select("*")
+
+        .order(
+            "id",
+            {
+                ascending: true
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Error de Supabase:",
+            error
+        );
+
+
+        contenedor.innerHTML = `
+
+            <div class="error">
+
+                No se pudieron cargar
+                los productos.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    if (!data || data.length === 0) {
+
+        contenedor.innerHTML = `
+
+            <div class="cargando">
+
+                No hay productos disponibles.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    productosTodos = data;
+
+    prepararFiltros();
+
+    mostrarProductos(
+        productosTodos
+    );
+
+}
+
+
+/* =========================
+   CARRITO
+========================= */
+
+function actualizarCantidadCarrito() {
+
+    const carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+    const cantidad =
+        document.getElementById(
+            "cantidadCarrito"
+        );
+
+    const cantidadTotal =
+        carrito.reduce(
+            (total, producto) =>
+                total + Number(producto.cantidad || 1),
+            0
+        );
+
+    if (cantidad) {
+
+        cantidad.textContent =
+            cantidadTotal;
+
+    }
+
+}
+
+
+/* =========================
+   INICIAR
+========================= */
+
+cargarProductos();
+
+actualizarCantidadCarrito();
+
+</script>
+<a
+    href="https://wa.me/5491140615513"
+    class="whatsapp-flotante"
+    target="_blank"
+>
+    💬
+</a>
+
+<style>
+.whatsapp-flotante {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 58px;
+    height: 58px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 9999;
+}
+
+.whatsapp-flotante:hover {
+    transform: scale(1.08);
+}
+</style>
+</body>
+
+</html>

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
+<title>Alma Boho</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+<meta property="og:title" content="Alma Boho - Zapatos, Sandalias y Botas">
+<meta property="og:description" content="Descubrí nuestro catálogo de calzado boho. Consultanos por WhatsApp.">
+<meta property="og:image" content="https://m67813341-lab.github.io/Calzados-Web/IMG-20260830-WA0049.jpg">
+<meta property="og:url" content="https://m67813341-lab.github.io/Calzados-Web/">
+<meta property="og:type" content="website">
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+}
+
+.logo {
+    text-align: center;
+    line-height: 1;
+}
+
+.alma {
+    font-family: "Allura", cursive;
+    font-size: 85px;
+    font-weight: normal;
+    line-height: 0.8;
+    margin-bottom: 12px;
+}
+
+.boho {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 8px;
+    margin-left: 8px;
+}
+
+header p {
+    margin-top: 8px;
+    color: #ccc;
+}
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+nav {
+    background: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav a {
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.carrito-nav {
+    color: #222;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+nav a:hover {
+    opacity: 0.6;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    background: white;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.hero h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.boton {
+    display: inline-block;
+    background: #111;
+    color: white;
+    padding: 13px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boton:hover {
+    opacity: 0.85;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* =========================
+   SECCIONES
+========================= */
+
+.secciones {
+    max-width: 1100px;
+    margin: auto;
+    padding: 45px 18px;
+}
+
+.titulo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.titulo h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.titulo p {
+    color: #777;
+}
+
+/* =========================
+   TARJETAS DE SECCIÓN
+========================= */
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.tarjeta-seccion {
+    background: white;
+    padding: 35px 20px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    text-decoration: none;
+    color: #222;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta-seccion:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.tarjeta-seccion .icono {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.tarjeta-seccion h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.tarjeta-seccion p {
+    color: #777;
+    line-height: 1.5;
+}
+
+/* =========================
+   CONTACTO
+========================= */
+
+.contacto {
+    background: white;
+    text-align: center;
+    padding: 50px 20px;
+    margin-top: 20px;
+}
+
+.contacto h2 {
+    margin-bottom: 12px;
+}
+
+.contacto p {
+    color: #666;
+    margin-bottom: 22px;
+}
+
+.instagram {
+    display: inline-block;
+    margin-top: 20px;
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+footer p {
+    color: #aaa;
+    margin-top: 15px;
+}
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 700px) {
+
+    .tarjetas {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .tarjeta-seccion {
+        padding: 28px 20px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .hero {
+        padding: 55px 20px;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
+    nav {
+        gap: 6px;
+        padding: 12px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    header {
+        padding: 20px 12px;
+    }
+
+    .alma {
+        font-size: 76px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+<div class="logo">
+
+    <div class="alma">
+        Alma
+    </div>
+
+    <div class="boho">
+        BOHO
+    </div>
+
+</div>
+
+<p>
+Zapatos • Sandalias • Botas
+</p>
+
+</header>
+
+
+<!-- =========================
+     NAVEGACIÓN
+========================= -->
+
+<nav>
+
+<a href="index.html">
+Inicio
+</a>
+
+<a href="catalogo.html">
+🛍️ Catálogo
+</a>
+
+<a href="ofertas.html">
+🔥 Ofertas
+</a>
+
+<a href="nuevo.html">
+🆕 Nuevo catálogo
+</a>
+
+<a href="#contacto">
+Contacto
+</a>
+
+<a href="carrito.html" class="carrito-nav">
+🛒 Carrito (<span id="cantidadCarrito">0</span>)
+</a>
+
+</nav>
+
+
+<!-- =========================
+     PRESENTACIÓN
+========================= -->
+
+<section class="hero">
+
+<h2>
+Encontrá tu próximo par 👟
+</h2>
+
+<p>
+Descubrí nuestros modelos disponibles.
+</p>
+
+<a
+href="catalogo.html"
+class="boton"
+>
+VER CATÁLOGO
+</a>
+
+</section>
+
+
+<!-- =========================
+     SECCIONES
+========================= -->
+
+<section class="secciones">
+
+<div class="titulo">
+
+<h2>
+Descubrí Alma Boho
+</h2>
+
+<p>
+Elegí una sección para comenzar.
+</p>
+
+</div>
+
+
+<div class="tarjetas">
+
+
+<a
+href="catalogo.html"
+class="tarjeta-seccion"
+>
+
+<div class="icono">
+🛍️
+</div>
+
+<h3>
+Catálogo
+</h3>
+
+<p>
+Todos nuestros productos disponibles.
+</p>
+
+</a>
+
+
+<a
+href="ofertas.html"
+class="tarjeta-seccion"
+>
+
+<div class="icono">
+🔥
+</div>
+
+<h3>
+Ofertas
+</h3>
+
+<p>
+Encontrá nuestros productos con descuento.
+</p>
+
+</a>
+
+
+<a
+href="nuevo.html"
+class="tarjeta-seccion"
+>
+
+<div class="icono">
+🆕
+</div>
+
+<h3>
+Nuevo catálogo
+</h3>
+
+<p>
+Conocé nuestros modelos más nuevos.
+</p>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CONTACTO
+========================= -->
+
+<section
+class="contacto"
+id="contacto"
+>
+
+<h2>
+¿Te interesa algún producto?
+</h2>
+
+<p>
+Consultanos por disponibilidad, talles y colores.
+</p>
+
+<a
+href="https://wa.me/5491140615513"
+class="boton"
+target="_blank"
+>
+💬 WHATSAPP
+</a>
+
+<br>
+
+<a
+href="https://www.instagram.com/almaboho.arg/"
+class="instagram"
+target="_blank"
+>
+📸 Instagram
+</a>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<h3>
+ALMA BOHO
+</h3>
+
+<p>
+© 2026 Alma Boho
+</p>
+
+</footer>
+
+
+<script>
+
+function actualizarCantidadCarrito() {
+
+    const carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+    const cantidad =
+        document.getElementById(
+            "cantidadCarrito"
+        );
+
+    const cantidadTotal =
+        carrito.reduce(
+            (total, producto) =>
+                total + Number(producto.cantidad || 1),
+            0
+        );
+
+    if (cantidad) {
+
+        cantidad.textContent =
+            cantidadTotal;
+
+    }
+
+}
+
+actualizarCantidadCarrito();
+
+</script>
+<a
+    href="https://wa.me/5491140615513"
+    class="whatsapp-flotante"
+    target="_blank"
+>
+    💬
+</a>
+
+<style>
+.whatsapp-flotante {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 58px;
+    height: 58px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 9999;
+}
+
+.whatsapp-flotante:hover {
+    transform: scale(1.08);
+}
+</style>
+</body>
+
+</html>

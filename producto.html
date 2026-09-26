@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
+<title>Producto | Alma Boho</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+}
+
+.logo {
+    text-align: center;
+    line-height: 1;
+}
+
+.alma {
+    font-family: "Allura", cursive;
+    font-size: 85px;
+    line-height: 0.8;
+    margin-bottom: 12px;
+}
+
+.boho {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 8px;
+    margin-left: 8px;
+}
+
+header p {
+    margin-top: 8px;
+    color: #ccc;
+}
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+nav {
+    background: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav a {
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.carrito-nav {
+    display: inline-block;
+    background: #111;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 7px;
+}
+
+/* =========================
+   PRODUCTO
+========================= */
+
+.producto-detalle {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.producto-contenido {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+    background: #f5f5f5;
+    border-radius: 12px;
+}
+
+.producto-info h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.codigo {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.precio {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.precio-anterior {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: normal;
+}
+
+.dato {
+    margin: 15px 0;
+    font-size: 16px;
+}
+
+/* =========================
+   TALLES
+========================= */
+
+.talles {
+    margin-top: 25px;
+}
+
+.talles h3 {
+    margin-bottom: 12px;
+}
+
+.selector-talle {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+/* =========================
+   CANTIDAD
+========================= */
+
+.cantidad {
+    margin-top: 20px;
+}
+
+.cantidad h3 {
+    margin-bottom: 10px;
+}
+
+.cantidad-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cantidad-control button {
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: #111;
+    color: white;
+    border-radius: 7px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cantidad-control button:hover {
+    opacity: 0.8;
+}
+
+.cantidad-control input {
+    width: 60px;
+    height: 42px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 18px;
+}
+
+/* =========================
+   STOCK
+========================= */
+
+.stock {
+    margin-top: 20px;
+    color: #666;
+}
+
+/* =========================
+   BOTÓN CARRITO
+========================= */
+
+.agregar-carrito {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    background: white;
+    color: #111;
+    padding: 14px 22px;
+    border: 2px solid #111;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.agregar-carrito:hover {
+    background: #111;
+    color: white;
+}
+
+/* =========================
+   WHATSAPP
+========================= */
+
+.whatsapp {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+    background: #111;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.whatsapp:hover {
+    opacity: 0.85;
+}
+
+/* =========================
+   VOLVER
+========================= */
+
+.volver {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================
+   ESTADOS
+========================= */
+
+.cargando {
+    text-align: center;
+    padding: 50px;
+    color: #777;
+}
+
+.error {
+    text-align: center;
+    padding: 50px;
+    color: #b00020;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 40px;
+}
+
+footer p {
+    color: #aaa;
+    margin-top: 15px;
+}
+
+/* =========================
+   WHATSAPP FLOTANTE
+========================= */
+
+.whatsapp-flotante {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 58px;
+    height: 58px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 9999;
+}
+
+.whatsapp-flotante:hover {
+    transform: scale(1.08);
+}
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 700px) {
+
+    .producto-contenido {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .producto-imagen {
+        height: 350px;
+    }
+
+    .producto-info h1 {
+        font-size: 26px;
+    }
+
+    .precio {
+        font-size: 26px;
+    }
+
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
+    nav {
+        gap: 6px;
+        padding: 12px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    header {
+        padding: 20px 12px;
+    }
+
+    .alma {
+        font-size: 76px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+
+    <div class="alma">
+        Alma
+    </div>
+
+    <div class="boho">
+        BOHO
+    </div>
+
+</div>
+
+<p>
+Zapatos • Sandalias • Botas
+</p>
+
+</header>
+
+
+<nav>
+
+<a href="index.html">
+Inicio
+</a>
+
+<a href="catalogo.html">
+🛍️ Catálogo
+</a>
+
+<a href="ofertas.html">
+🔥 Ofertas
+</a>
+
+<a href="nuevo.html">
+🆕 Nuevo catálogo
+</a>
+
+<a href="index.html#contacto">
+Contacto
+</a>
+
+<a href="carrito.html" class="carrito-nav">
+🛒 Carrito (<span id="cantidadCarrito">0</span>)
+</a>
+
+</nav>
+
+
+<section class="producto-detalle">
+
+<a
+href="catalogo.html"
+class="volver"
+>
+← Volver al catálogo
+</a>
+
+
+<div
+id="producto"
+class="cargando"
+>
+
+Cargando producto...
+
+</div>
+
+</section>
+
+
+<footer>
+
+<h3>
+ALMA BOHO
+</h3>
+
+<p>
+© 2026 Alma Boho
+</p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   VARIABLES
+========================= */
+
+let productoActual = null;
+
+
+/* =========================
+   CARRITO
+========================= */
+
+function obtenerCarrito() {
+
+    return JSON.parse(
+        localStorage.getItem("carrito")
+    ) || [];
+
+}
+
+
+function actualizarCantidadCarrito() {
+
+    const carrito =
+        obtenerCarrito();
+
+    const cantidad =
+        carrito.reduce(
+            (total, producto) =>
+                total + Number(producto.cantidad || 1),
+            0
+        );
+
+    const elemento =
+        document.getElementById(
+            "cantidadCarrito"
+        );
+
+    if (elemento) {
+
+        elemento.textContent =
+            cantidad;
+
+    }
+
+}
+
+
+function agregarAlCarrito() {
+
+    if (!productoActual) {
+
+        alert(
+            "El producto todavía no está cargado."
+        );
+
+        return;
+
+    }
+
+
+    const talleSeleccionado =
+        document.getElementById(
+            "talleSeleccionado"
+        ).value;
+
+
+    const cantidadSeleccionada =
+        Number(
+            document.getElementById(
+                "cantidadSeleccionada"
+            ).value
+        );
+
+
+    if (!talleSeleccionado) {
+
+        alert(
+            "📏 Elegí un talle."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !cantidadSeleccionada ||
+        cantidadSeleccionada < 1
+    ) {
+
+        alert(
+            "Elegí una cantidad válida."
+        );
+
+        return;
+
+    }
+
+
+    const stockDisponible =
+        Number(
+            productoActual.Talles[
+                talleSeleccionado
+            ]
+        );
+
+
+    if (
+        cantidadSeleccionada >
+        stockDisponible
+    ) {
+
+        alert(
+            `⚠️ Solo hay ${stockDisponible} unidad(es) disponibles de ese talle.`
+        );
+
+        return;
+
+    }
+
+
+    const carrito =
+        obtenerCarrito();
+
+
+    const productoCarrito = {
+
+        id:
+            productoActual.id,
+
+        nombre:
+            productoActual.Nombre,
+
+        color:
+            productoActual.Color,
+
+        precio:
+            Number(
+                productoActual.Precio
+            ),
+
+        foto:
+            productoActual.Foto,
+
+        talle:
+            talleSeleccionado,
+
+        cantidad:
+            cantidadSeleccionada
+
+    };
+
+
+    carrito.push(
+        productoCarrito
+    );
+
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
+
+    actualizarCantidadCarrito();
+
+
+    alert(
+        "🛒 Producto agregado al carrito"
+    );
+
+}
+
+
+/* =========================
+   CAMBIAR CANTIDAD
+========================= */
+
+function cambiarCantidad(valor) {
+
+    const input =
+        document.getElementById(
+            "cantidadSeleccionada"
+        );
+
+
+    let cantidad =
+        Number(
+            input.value
+        ) || 1;
+
+
+    cantidad += valor;
+
+
+    if (cantidad < 1) {
+
+        cantidad = 1;
+
+    }
+
+
+    input.value =
+        cantidad;
+
+}
+
+
+/* =========================
+   OBTENER ID DEL PRODUCTO
+========================= */
+
+const parametros =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const id =
+    parametros.get("id");
+
+
+/* =========================
+   CARGAR PRODUCTO
+========================= */
+
+async function cargarProducto() {
+
+    const contenedor =
+        document.getElementById(
+            "producto"
+        );
+
+
+    if (!id) {
+
+        contenedor.innerHTML = `
+
+            <div class="error">
+
+                No se encontró
+                el producto.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const { data, error } =
+        await supabaseClient
+
+        .from("Productos")
+
+        .select("*")
+
+        .eq("id", id)
+
+        .single();
+
+
+    if (error || !data) {
+
+        console.error(
+            "Error:",
+            error
+        );
+
+
+        contenedor.innerHTML = `
+
+            <div class="error">
+
+                No se pudo encontrar
+                este producto.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    productoActual =
+        data;
+
+
+    /* =========================
+       TALLES
+    ========================= */
+
+    const talles =
+        productoActual.Talles || {};
+
+
+    const listaTalles =
+        Object.entries(talles);
+
+
+    let opcionesTalles =
+        "";
+
+
+    listaTalles.forEach(
+        ([talle, cantidad]) => {
+
+            if (
+                Number(cantidad) > 0
+            ) {
+
+                opcionesTalles += `
+
+                    <option
+                        value="${talle}"
+                    >
+                        Talle ${talle} — ${cantidad} disponible(s)
+                    </option>
+
+                `;
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       STOCK
+    ========================= */
+
+    const stockTexto =
+
+        listaTalles
+
+        .filter(
+            ([talle, cantidad]) =>
+            Number(cantidad) > 0
+        )
+
+        .map(
+            ([talle, cantidad]) =>
+            `${talle} (${cantidad})`
+        )
+
+        .join(" · ");
+
+
+    /* =========================
+       PRECIO
+    ========================= */
+
+    const precio =
+        Number(
+            productoActual.Precio
+        )
+        .toLocaleString(
+            "es-AR"
+        );
+
+
+    const precioAnterior =
+
+        productoActual.Oferta &&
+        productoActual.PrecioAnterior
+
+        ?
+
+        `<span class="precio-anterior">
+            $${Number(
+                productoActual.PrecioAnterior
+            ).toLocaleString(
+                "es-AR"
+            )}
+        </span>`
+
+        :
+
+        "";
+
+
+    /* =========================
+       MOSTRAR PRODUCTO
+    ========================= */
+
+    contenedor.className =
+        "producto-contenido";
+
+
+    contenedor.innerHTML = `
+
+        <div>
+
+            <img
+                src="${productoActual.Foto}"
+                alt="${productoActual.Nombre} ${productoActual.Color}"
+                class="producto-imagen"
+            >
+
+        </div>
+
+
+        <div class="producto-info">
+
+            <h1>
+                ${productoActual.Nombre}
+            </h1>
+
+
+            <div class="codigo">
+
+                Código:
+                ${productoActual.Codigo}
+
+            </div>
+
+
+            <div class="precio">
+
+                ${precioAnterior}
+
+                $${precio}
+
+            </div>
+
+
+            <div class="dato">
+
+                <strong>
+                    Color:
+                </strong>
+
+                ${productoActual.Color}
+
+            </div>
+
+
+            <div class="talles">
+
+                <h3>
+                    Elegí tu talle
+                </h3>
+
+
+                <select
+                    id="talleSeleccionado"
+                    class="selector-talle"
+                >
+
+                    <option value="">
+                        Seleccionar talle
+                    </option>
+
+                    ${
+                        opcionesTalles ||
+
+                        `
+                        <option value="">
+                            Sin talles disponibles
+                        </option>
+                        `
+                    }
+
+                </select>
+
+            </div>
+
+
+            <div class="cantidad">
+
+                <h3>
+                    Cantidad
+                </h3>
+
+
+                <div class="cantidad-control">
+
+                    <button
+                        type="button"
+                        onclick="cambiarCantidad(-1)"
+                    >
+                        −
+                    </button>
+
+
+                    <input
+                        type="number"
+                        id="cantidadSeleccionada"
+                        value="1"
+                        min="1"
+                    >
+
+
+                    <button
+                        type="button"
+                        onclick="cambiarCantidad(1)"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="stock">
+
+                <strong>
+                    Stock:
+                </strong>
+
+                ${stockTexto || "Sin stock"}
+
+            </div>
+
+
+            <button
+                class="agregar-carrito"
+                onclick="agregarAlCarrito()"
+            >
+                🛒 Agregar al carrito
+            </button>
+
+
+            <a
+                href="https://wa.me/5491140615513"
+                target="_blank"
+                class="whatsapp"
+            >
+                💬 Consultar por WhatsApp
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   INICIAR
+========================= */
+
+actualizarCantidadCarrito();
+
+cargarProducto();
+
+</script>
+
+
+<a
+    href="https://wa.me/5491140615513"
+    class="whatsapp-flotante"
+    target="_blank"
+>
+    💬
+</a>
+
+
+</body>
+
+</html>
