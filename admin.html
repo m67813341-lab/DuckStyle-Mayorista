@@ -171,7 +171,11 @@ button:hover {
         placeholder="Contraseña"
     >
 
-    <button id="btnLogin">
+    <button
+        type="button"
+        id="btnLogin"
+        onclick="iniciarSesion()"
+    >
         INGRESAR
     </button>
 
@@ -873,7 +877,7 @@ async function cargarProductos() {
         await supabaseClient
         .from("Productos")
         .select("*")
-        .order("created_at", {
+            .order("created_at", {
             ascending: false
         });
 
