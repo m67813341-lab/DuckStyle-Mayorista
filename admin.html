@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -81,6 +80,11 @@ button:hover {
     opacity: .85;
 }
 
+button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
 .boton-gris {
     background: #777;
 }
@@ -139,7 +143,6 @@ label {
 .talle-fila {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 8px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -147,34 +150,14 @@ label {
     margin-bottom: 8px;
 }
 
-.talle-numero {
-    font-weight: bold;
-    font-size: 18px;
-    min-width: 45px;
-    text-align: center;
-}
-
-.stock-numero {
-    font-weight: bold;
-    font-size: 18px;
-    min-width: 35px;
-    text-align: center;
-}
-
-.boton-stock {
-    width: 42px;
-    height: 42px;
-    padding: 0;
-    font-size: 22px;
+.talle-fila input {
     margin: 0;
 }
 
-.boton-menos {
-    background: #777;
-}
-
-.boton-mas {
-    background: #111;
+.talle-numero {
+    font-weight: bold;
+    font-size: 18px;
+    min-width: 60px;
 }
 
 .boton-agregar-talle {
@@ -244,23 +227,17 @@ label {
 
 @media (max-width: 500px) {
 
-    .talle-fila {
-        gap: 5px;
-    }
-
-    .boton-stock {
-        width: 38px;
-        height: 38px;
-    }
-
     .categoria-item {
+        flex-wrap: wrap;
+    }
+
+    .talle-fila {
         flex-wrap: wrap;
     }
 
 }
 
 </style>
-
 </head>
 
 <body>
@@ -295,7 +272,7 @@ label {
 >
 
 <button onclick="iniciarSesion()">
-    INGRESAR
+INGRESAR
 </button>
 
 <div
@@ -315,11 +292,7 @@ label {
 
 <div class="caja">
 
-<div class="titulo-boton">
-
-<h2>
-Administrar productos
-</h2>
+<h2>Administrar productos</h2>
 
 <button
     class="boton-gris"
@@ -328,7 +301,7 @@ Administrar productos
 CERRAR SESIÓN
 </button>
 
-</div>
+<br>
 
 <button onclick="mostrarFormulario()">
 ➕ AGREGAR PRODUCTO
@@ -346,9 +319,7 @@ CERRAR SESIÓN
 
 <div class="caja">
 
-<h2>
-Categorías
-</h2>
+<h2>Categorías</h2>
 
 <p>
 Agregá las categorías que quieras usar en el catálogo.
@@ -391,7 +362,6 @@ Nuevo producto
     id="productoId"
 >
 
-
 <label>
 Nombre
 </label>
@@ -402,7 +372,6 @@ Nombre
     placeholder="Ej: Perfume Hawas"
 >
 
-
 <label>
 Código
 </label>
@@ -412,7 +381,6 @@ Código
     id="codigo"
     placeholder="Ej: P-001"
 >
-
 
 <label>
 Categoría
@@ -426,7 +394,6 @@ Seleccionar categoría
 
 </select>
 
-
 <label>
 Color
 </label>
@@ -434,9 +401,8 @@ Color
 <input
     type="text"
     id="color"
-    placeholder="Ej: Negro"
+    placeholder="Opcional"
 >
-
 
 <label>
 Precio
@@ -467,7 +433,6 @@ Precio
 
 </label>
 
-
 <div
     id="campoPrecioAnterior"
     class="oculto"
@@ -485,7 +450,6 @@ Precio anterior
 
 </div>
 
-
 <label class="check-opcion">
 
 <input
@@ -500,6 +464,8 @@ Precio anterior
 </div>
 
 
+<!-- TALLES -->
+
 <label>
 Talles y stock
 </label>
@@ -507,15 +473,25 @@ Talles y stock
 <div
     class="talles-admin"
     id="tallesAdmin"
-></div>
+>
+</div>
+
+<input
+    type="text"
+    id="nuevoTalle"
+    placeholder="Ej: 40, S, M, L..."
+>
 
 <button
+    type="button"
     class="boton-agregar-talle"
     onclick="agregarTalle()"
 >
 ➕ AGREGAR TALLE
 </button>
 
+
+<!-- FOTO -->
 
 <label>
 Foto
@@ -530,11 +506,18 @@ Foto
 <div id="fotoActual"></div>
 
 
-<button onclick="guardarProducto()">
-💾 GUARDAR
+<br>
+
+<button
+    type="button"
+    id="btnGuardar"
+    onclick="guardarProducto()"
+>
+💾 GUARDAR PRODUCTO
 </button>
 
 <button
+    type="button"
     class="boton-gris"
     onclick="cancelarFormulario()"
 >
@@ -566,7 +549,7 @@ Cargando...
 <script>
 
 /* =========================
-   ADMINISTRADOR DUCKSTYLE
+   ADMINISTRADOR
 ========================= */
 
 const ADMIN_UID =
@@ -574,40 +557,18 @@ const ADMIN_UID =
 
 
 /* =========================
-   TALLES DISPONIBLES
-========================= */
-
-const TALLES_DISPONIBLES = [
-    "35",
-    "36",
-    "37",
-    "38",
-    "39",
-    "40",
-    "41",
-    "42",
-    "43",
-    "44",
-    "45"
-];
-
-
-/* =========================
-   TALLES TEMPORALES
+   VARIABLES
 ========================= */
 
 let tallesActuales = {};
 
-
-/* =========================
-   CATEGORÍAS
-========================= */
-
 let categoriasActuales = [];
 
+let productoEditando = null;
+
 
 /* =========================
-   MOSTRAR PRECIO ANTERIOR
+   PRECIO ANTERIOR
 ========================= */
 
 function mostrarPrecioAnterior() {
@@ -658,29 +619,35 @@ async function iniciarSesion() {
         document
         .getElementById("mensajeLogin");
 
+    if (!email || !password) {
+
+        mensaje.textContent =
+            "Completá correo y contraseña.";
+
+        return;
+    }
 
     mensaje.textContent =
         "Ingresando...";
-
 
     const { data, error } =
         await supabaseClient.auth
         .signInWithPassword({
 
-            email,
-            password
+            email: email,
+            password: password
 
         });
 
-
     if (error) {
+
+        console.error(error);
 
         mensaje.textContent =
             "Correo o contraseña incorrectos.";
 
         return;
     }
-
 
     if (
         !data.user ||
@@ -695,21 +662,19 @@ async function iniciarSesion() {
         return;
     }
 
-
     document
         .getElementById("login")
         .classList
         .add("oculto");
-
 
     document
         .getElementById("admin")
         .classList
         .remove("oculto");
 
+    await cargarProductos();
 
-    cargarProductos();
-    cargarCategorias();
+    await cargarCategorias();
 }
 
 
@@ -749,10 +714,8 @@ async function cargarCategorias() {
             "categoria"
         );
 
-
     lista.innerHTML =
         "Cargando categorías...";
-
 
     const { data, error } =
         await supabaseClient
@@ -762,7 +725,6 @@ async function cargarCategorias() {
         .order("Nombre", {
             ascending: true
         });
-
 
     if (error) {
 
@@ -774,10 +736,8 @@ async function cargarCategorias() {
         return;
     }
 
-
     categoriasActuales =
         data || [];
-
 
     select.innerHTML = `
         <option value="">
@@ -785,22 +745,24 @@ async function cargarCategorias() {
         </option>
     `;
 
+    categoriasActuales.forEach(
+        categoria => {
 
-    categoriasActuales.forEach(categoria => {
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        const option =
-            document.createElement("option");
+            option.value =
+                categoria.Nombre;
 
-        option.value =
-            categoria.Nombre;
+            option.textContent =
+                categoria.Nombre;
 
-        option.textContent =
-            categoria.Nombre;
+            select.appendChild(option);
 
-        select.appendChild(option);
-
-    });
-
+        }
+    );
 
     if (
         categoriasActuales.length === 0
@@ -812,36 +774,52 @@ async function cargarCategorias() {
         return;
     }
 
-
     lista.innerHTML = "";
 
+    categoriasActuales.forEach(
+        categoria => {
 
-    categoriasActuales.forEach(categoria => {
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-        const div =
-            document.createElement("div");
+            div.className =
+                "categoria-item";
 
-        div.className =
-            "categoria-item";
+            const nombre =
+                document.createElement(
+                    "strong"
+                );
 
-        div.innerHTML = `
+            nombre.textContent =
+                categoria.Nombre;
 
-            <strong>
-                ${categoria.Nombre}
-            </strong>
+            const boton =
+                document.createElement(
+                    "button"
+                );
 
-            <button
-                class="boton-rojo"
-                onclick="eliminarCategoria(${categoria.id})"
-            >
-                🗑️ ELIMINAR
-            </button>
+            boton.className =
+                "boton-rojo";
 
-        `;
+            boton.textContent =
+                "🗑️ ELIMINAR";
 
-        lista.appendChild(div);
+            boton.onclick =
+                () =>
+                    eliminarCategoria(
+                        categoria.id
+                    );
 
-    });
+            div.appendChild(nombre);
+
+            div.appendChild(boton);
+
+            lista.appendChild(div);
+
+        }
+    );
 }
 
 
@@ -859,7 +837,6 @@ async function agregarCategoria() {
     const nombre =
         input.value.trim();
 
-
     if (!nombre) {
 
         alert(
@@ -869,15 +846,14 @@ async function agregarCategoria() {
         return;
     }
 
-
     const existente =
         categoriasActuales.find(
             categoria =>
                 categoria.Nombre
                 .toLowerCase()
-                === nombre.toLowerCase()
+                ===
+                nombre.toLowerCase()
         );
-
 
     if (existente) {
 
@@ -887,7 +863,6 @@ async function agregarCategoria() {
 
         return;
     }
-
 
     const slug =
         nombre
@@ -906,7 +881,6 @@ async function agregarCategoria() {
             ""
         );
 
-
     const { error } =
         await supabaseClient
         .from("Categorias")
@@ -920,22 +894,21 @@ async function agregarCategoria() {
 
         });
 
-
     if (error) {
 
         console.error(error);
 
         alert(
-            "No se pudo agregar la categoría."
+            "No se pudo agregar la categoría.\n\n" +
+            error.message
         );
 
         return;
     }
 
-
     input.value = "";
 
-    cargarCategorias();
+    await cargarCategorias();
 }
 
 
@@ -950,34 +923,33 @@ async function eliminarCategoria(id) {
             "¿Seguro que querés eliminar esta categoría?"
         );
 
-
     if (!confirmar) {
         return;
     }
-
 
     const { error } =
         await supabaseClient
         .from("Categorias")
         .update({
+
             Activo: false
+
         })
         .eq("id", id);
-
 
     if (error) {
 
         console.error(error);
 
         alert(
-            "No se pudo eliminar la categoría."
+            "No se pudo eliminar la categoría.\n\n" +
+            error.message
         );
 
         return;
     }
 
-
-    cargarCategorias();
+    await cargarCategorias();
 }
 
 
@@ -988,12 +960,12 @@ async function eliminarCategoria(id) {
 async function cargarProductos() {
 
     const lista =
-        document.getElementById("lista");
-
+        document.getElementById(
+            "lista"
+        );
 
     lista.innerHTML =
         "Cargando...";
-
 
     const { data, error } =
         await supabaseClient
@@ -1003,17 +975,15 @@ async function cargarProductos() {
             ascending: true
         });
 
-
     if (error) {
+
+        console.error(error);
 
         lista.innerHTML =
             "Error al cargar los productos.";
 
-        console.error(error);
-
         return;
     }
-
 
     if (!data || data.length === 0) {
 
@@ -1023,473 +993,447 @@ async function cargarProductos() {
         return;
     }
 
-
     lista.innerHTML = "";
 
+    data.forEach(
+        producto => {
 
-    data.forEach(producto => {
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-        const div =
-            document.createElement("div");
+            div.className =
+                "producto";
 
-        div.className =
-            "producto";
+            if (producto.Foto) {
 
+                const imagen =
+                    document.createElement(
+                        "img"
+                    );
 
-        let imagen = "";
+                imagen.src =
+                    producto.Foto;
 
+                imagen.alt =
+                    producto.Nombre || "";
 
-        if (producto.Foto) {
+                div.appendChild(imagen);
+            }
 
-            imagen = `
-                <img
-                    src="${producto.Foto}"
-                    alt="${producto.Nombre || ""}"
-                >
-            `;
+            const titulo =
+                document.createElement(
+                    "h3"
+                );
+
+            titulo.textContent =
+                producto.Nombre ||
+                "Sin nombre";
+
+            div.appendChild(titulo);
+
+            const codigo =
+                document.createElement(
+                    "p"
+                );
+
+            codigo.textContent =
+                "Código: " +
+                (producto.Codigo || "-");
+
+            div.appendChild(codigo);
+
+            const categoria =
+                document.createElement(
+                    "p"
+                );
+
+            categoria.textContent =
+                "Categoría: " +
+                (producto.Categoria || "-");
+
+            div.appendChild(categoria);
+
+            const color =
+                document.createElement(
+                    "p"
+                );
+
+            color.textContent =
+                "Color: " +
+                (producto.Color || "-");
+
+            div.appendChild(color);
+
+            const precio =
+                document.createElement(
+                    "p"
+                );
+
+            precio.textContent =
+                "Precio: $" +
+                (producto.Precio || 0);
+
+            div.appendChild(precio);
+
+            let datosTalles = {};
+
+            try {
+
+                datosTalles =
+                    typeof producto.Talles ===
+                    "string"
+
+                    ? JSON.parse(
+                        producto.Talles ||
+                        "{}"
+                    )
+
+                    : (
+                        producto.Talles ||
+                        {}
+                    );
+
+            } catch {
+
+                datosTalles = {};
+
+            }
+
+            const tallesTexto =
+                Object.entries(
+                    datosTalles
+                )
+                .map(
+                    ([talle, stock]) =>
+                        `${talle} (${stock})`
+                )
+                .join(" · ");
+
+            const stock =
+                document.createElement(
+                    "p"
+                );
+
+            stock.textContent =
+                "Stock: " +
+                (
+                    tallesTexto ||
+                    "Sin talles"
+                );
+
+            div.appendChild(stock);
+
+            const editar =
+                document.createElement(
+                    "button"
+                );
+
+            editar.textContent =
+                "✏️ EDITAR";
+
+            editar.onclick =
+                () =>
+                    editarProducto(
+                        producto
+                    );
+
+            div.appendChild(editar);
+
+            const eliminar =
+                document.createElement(
+                    "button"
+                );
+
+            eliminar.className =
+                "boton-rojo";
+
+            eliminar.textContent =
+                "🗑️ ELIMINAR";
+
+            eliminar.onclick =
+                () =>
+                    eliminarProducto(
+                        producto.id
+                    );
+
+            div.appendChild(eliminar);
+
+            lista.appendChild(div);
+
         }
-
-
-        const tallesTexto =
-            Object.entries(
-                producto.Talles || {}
-            )
-            .map(
-                ([talle, stock]) =>
-                    `${talle} (${stock})`
-            )
-            .join(" · ");
-
-
-        div.innerHTML = `
-
-            ${imagen}
-
-            <h3>
-                ${producto.Nombre || "Sin nombre"}
-            </h3>
-
-            <p>
-                Código:
-                ${producto.Codigo || "-"}
-            </p>
-
-            <p>
-                Categoría:
-                ${producto.Categoria || "-"}
-            </p>
-
-            <p>
-                Color:
-                ${producto.Color || "-"}
-            </p>
-
-            <p>
-                Precio:
-                $${producto.Precio || 0}
-            </p>
-
-            <p>
-                Stock:
-                ${tallesTexto || "Sin stock"}
-            </p>
-
-            <button>
-                ✏️ EDITAR
-            </button>
-
-            <button
-                class="boton-rojo"
-            >
-                🗑️ ELIMINAR
-            </button>
-        `;
-
-
-        div
-        .querySelector("button")
-        .onclick = () =>
-            editarProducto(producto);
-
-
-        div
-        .querySelectorAll("button")[1]
-        .onclick = () =>
-            eliminarProducto(producto.id);
-
-
-        lista.appendChild(div);
-
-    });
+    );
 }
-    /* MOSTRAR FORMULARIO */
+
+
+/* =========================
+   MOSTRAR FORMULARIO
+========================= */
+
 function mostrarFormulario() {
-  limpiarFormulario();
-
-  document.getElementById("tituloFormulario").textContent = "Nuevo producto";
-  document.getElementById("formulario").classList.remove("oculto");
-
-  renderizarTalles();
-}
-
-
-/* EDITAR PRODUCTO */
-function editarProducto(producto) {
-  document.getElementById("tituloFormulario").textContent = "Editar producto";
-  document.getElementById("formulario").classList.remove("oculto");
-
-  document.getElementById("nombre").value = producto.Nombre || "";
-  document.getElementById("codigo").value = producto.Codigo || "";
-  document.getElementById("color").value = producto.Color || "";
-  document.getElementById("precio").value = producto.Precio || "";
-  document.getElementById("precioAnterior").value = producto.PrecioAnterior || "";
-  document.getElementById("foto").value = producto.Foto || "";
-
-  document.getElementById("categoria").value = producto.Categoria || "";
-
-  document.getElementById("oferta").checked = producto.Oferta === true;
-  document.getElementById("nuevo").checked = producto.Nuevo === true;
-
-  productoEditando = producto;
-
-  tallesActuales = {};
-
-  try {
-    const datosTalles =
-      typeof producto.Talles === "string"
-        ? JSON.parse(producto.Talles || "{}")
-        : (producto.Talles || {});
-
-    Object.entries(datosTalles).forEach(([talle, stock]) => {
-      tallesActuales[talle] = Number(stock) || 0;
-    });
-  } catch (error) {
-    tallesActuales = {};
-  }
-
-  renderizarTalles();
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
-
-
-/* RENDERIZAR TALLES */
-function renderizarTalles() {
-  const contenedor = document.getElementById("listaTalles");
-
-  if (!contenedor) return;
-
-  contenedor.innerHTML = "";
-
-  Object.entries(tallesActuales).forEach(([talle, stock]) => {
-    const fila = document.createElement("div");
-    fila.className = "talleFila";
-
-    fila.innerHTML = `
-      <span class="talleNombre">Talle ${talle}</span>
-
-      <input
-        type="number"
-        min="0"
-        value="${stock}"
-        onchange="cambiarStock('${talle}', this.value)"
-      >
-
-      <button
-        type="button"
-        onclick="quitarTalle('${talle}')"
-      >
-        ×
-      </button>
-    `;
-
-    contenedor.appendChild(fila);
-  });
-}
-
-
-/* CAMBIAR STOCK */
-function cambiarStock(talle, valor) {
-  tallesActuales[talle] = Number(valor) || 0;
-}
-
-
-/* AGREGAR TALLE */
-function agregarTalle() {
-  const input = document.getElementById("nuevoTalle");
-
-  if (!input) return;
-
-  const talle = input.value.trim();
-
-  if (!talle) {
-    alert("Escribí un talle.");
-    return;
-  }
-
-  if (tallesActuales[talle] !== undefined) {
-    alert("Ese talle ya existe.");
-    return;
-  }
-
-  tallesActuales[talle] = 0;
-
-  input.value = "";
-
-  renderizarTalles();
-}
-
-
-/* QUITAR TALLE */
-function quitarTalle(talle) {
-  delete tallesActuales[talle];
-
-  renderizarTalles();
-}
-
-
-/* COMPRIMIR IMAGEN */
-async function comprimirImagen(archivo) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-      const img = new Image();
-
-      img.onload = function() {
-        const canvas = document.createElement("canvas");
-
-        const MAX = 1200;
-
-        let ancho = img.width;
-        let alto = img.height;
-
-        if (ancho > MAX || alto > MAX) {
-          if (ancho > alto) {
-            alto = Math.round(alto * MAX / ancho);
-            ancho = MAX;
-          } else {
-            ancho = Math.round(ancho * MAX / alto);
-            alto = MAX;
-          }
-        }
-
-        canvas.width = ancho;
-        canvas.height = alto;
-
-        const ctx = canvas.getContext("2d");
-
-        ctx.drawImage(img, 0, 0, ancho, alto);
-
-        canvas.toBlob(
-          (blob) => resolve(blob),
-          "image/jpeg",
-          0.82
-        );
-      };
-
-      img.src = event.target.result;
-    };
-
-    reader.readAsDataURL(archivo);
-  });
-}
-
-
-/* GUARDAR PRODUCTO */
-async function guardarProducto(event) {
-  event.preventDefault();
-
-  const nombre = document.getElementById("nombre").value.trim();
-  const codigo = document.getElementById("codigo").value.trim();
-  const color = document.getElementById("color").value.trim();
-  const precio = Number(document.getElementById("precio").value);
-  const precioAnterior = Number(
-    document.getElementById("precioAnterior").value
-  ) || 0;
-
-  const categoria = document.getElementById("categoria").value.trim();
-
-  const oferta = document.getElementById("oferta").checked;
-  const nuevo = document.getElementById("nuevo").checked;
-
-  const archivo = document.getElementById("archivoFoto").files[0];
-
-  if (!nombre || !codigo || !precio || !categoria) {
-    alert("Completá nombre, código, precio y categoría.");
-    return;
-  }
-
-  const boton = document.getElementById("btnGuardar");
-
-  if (boton) {
-    boton.disabled = true;
-    boton.textContent = "Guardando...";
-  }
-
-  try {
-    let fotoURL = productoEditando?.Foto || "";
-
-    /* SUBIR IMAGEN */
-    if (archivo) {
-      const imagenComprimida = await comprimirImagen(archivo);
-
-      const nombreArchivo =
-        Date.now() + "_" +
-        archivo.name
-          .replace(/\s+/g, "_")
-          .replace(/[^a-zA-Z0-9._-]/g, "");
-
-      const { error: errorUpload } =
-        await supabaseClient.storage
-          .from("Productos")
-          .upload(nombreArchivo, imagenComprimida, {
-            contentType: "image/jpeg",
-            upsert: true
-          });
-
-      if (errorUpload) {
-        throw errorUpload;
-      }
-
-      const { data: urlData } =
-        supabaseClient.storage
-          .from("Productos")
-          .getPublicUrl(nombreArchivo);
-
-      fotoURL = urlData.publicUrl;
-    }
-
-    const producto = {
-      Nombre: nombre,
-      Codigo: codigo,
-      Color: color,
-      Precio: precio,
-      PrecioAnterior: precioAnterior,
-      Oferta: oferta,
-      Nuevo: nuevo,
-      Categoria: categoria,
-
-      /* Como Talles está creado como TEXT en tu tabla,
-         lo guardamos como JSON */
-      Talles: JSON.stringify(tallesActuales),
-
-      Foto: fotoURL
-    };
-
-    if (productoEditando) {
-      const { error } = await supabaseClient
-        .from("Productos")
-        .update(producto)
-        .eq("id", productoEditando.id);
-
-      if (error) {
-        throw error;
-      }
-
-      alert("Producto actualizado correctamente.");
-    } else {
-      const { error } = await supabaseClient
-        .from("Productos")
-        .insert([producto]);
-
-      if (error) {
-        throw error;
-      }
-
-      alert("Producto agregado correctamente.");
-    }
 
     limpiarFormulario();
-    await cargarProductos();
 
-  } catch (error) {
-    console.error(error);
+    document
+        .getElementById(
+            "tituloFormulario"
+        )
+        .textContent =
+        "Nuevo producto";
 
-    alert(
-      "No se pudo guardar el producto.\n\n" +
-      (error.message || error)
-    );
+    document
+        .getElementById(
+            "formulario"
+        )
+        .classList
+        .remove("oculto");
 
-  } finally {
-    if (boton) {
-      boton.disabled = false;
-      boton.textContent = "Guardar producto";
-    }
-  }
+    renderizarTalles();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
-/* ELIMINAR PRODUCTO */
+/* =========================
+   EDITAR PRODUCTO
+========================= */
+
+function editarProducto(
+    producto
+) {
+
+    productoEditando =
+        producto;
+
+    document
+        .getElementById(
+            "tituloFormulario"
+        )
+        .textContent =
+        "Editar producto";
+
+    document
+        .getElementById(
+            "formulario"
+        )
+        .classList
+        .remove("oculto");
+
+    document
+        .getElementById(
+            "productoId"
+        )
+        .value =
+        producto.id || "";
+
+    document
+        .getElementById(
+            "nombre"
+        )
+        .value =
+        producto.Nombre || "";
+
+    document
+        .getElementById(
+            "codigo"
+        )
+        .value =
+        producto.Codigo || "";
+
+    document
+        .getElementById(
+            "categoria"
+        )
+        .value =
+        producto.Categoria || "";
+
+    document
+        .getElementById(
+            "color"
+        )
+        .value =
+        producto.Color || "";
+
+    document
+        .getElementById(
+            "precio"
+        )
+        .value =
+        producto.Precio || "";
+
+    document
+        .getElementById(
+            "precioAnterior"
+        )
+        .value =
+        producto.PrecioAnterior || "";
+
+    document
+        .getElementById(
+            "oferta"
+        )
+        .checked =
+        producto.Oferta === true;
+
+    document
+        .getElementById(
+                    "nuevo"
+    )
+    .checked = producto.Nuevo === true;
+
+const talles = document.getElementById("tallesAdmin");
+
+if (typeof producto.Talles === "string") {
+    try {
+        const datosTalles = JSON.parse(producto.Talles || "{}");
+
+        talles.value = Object.entries(datosTalles)
+            .map(([talle, stock]) => `${talle}:${stock}`)
+            .join(", ");
+    } catch {
+        talles.value = producto.Talles || "";
+    }
+} else {
+    talles.value = Object.entries(producto.Talles || {})
+        .map(([talle, stock]) => `${talle}:${stock}`)
+        .join(", ");
+}
+
+document.getElementById("foto").value = "";
+
+document.getElementById("btnGuardar").textContent =
+    "Actualizar producto";
+
+window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
+
+}
+
 async function eliminarProducto(id) {
-  const confirmar = confirm(
-    "¿Seguro que querés eliminar este producto?"
-  );
+    if (!confirm("¿Seguro que querés eliminar este producto?")) {
+        return;
+    }
 
-  if (!confirmar) return;
-
-  try {
     const { error } = await supabaseClient
-      .from("Productos")
-      .delete()
-      .eq("id", id);
+        .from("Productos")
+        .delete()
+        .eq("id", id);
 
     if (error) {
-      throw error;
+        alert("Error al eliminar: " + error.message);
+        return;
     }
 
-    alert("Producto eliminado.");
+    alert("Producto eliminado correctamente.");
 
     await cargarProductos();
-
-  } catch (error) {
-    console.error(error);
-
-    alert(
-      "No se pudo eliminar el producto.\n\n" +
-      (error.message || error)
-    );
-  }
+    limpiarFormulario();
 }
 
-
-/* LIMPIAR FORMULARIO */
 function limpiarFormulario() {
-  const form = document.getElementById("formProducto");
+    productoEditando = null;
 
-  if (form) {
-    form.reset();
-  }
+    document.getElementById("nombre").value = "";
+    document.getElementById("codigo").value = "";
+    document.getElementById("categoria").value = "";
+    document.getElementById("color").value = "";
+    document.getElementById("precio").value = "";
+    document.getElementById("precioAnterior").value = "";
+    document.getElementById("oferta").checked = false;
+    document.getElementById("nuevo").checked = false;
+    document.getElementById("tallesAdmin").value = "";
+    document.getElementById("foto").value = "";
 
-  document.getElementById("categoria").value = "";
-
-  document.getElementById("oferta").checked = false;
-  document.getElementById("nuevo").checked = false;
-
-  tallesActuales = {};
-
-  productoEditando = null;
-
-  renderizarTalles();
+    document.getElementById("btnGuardar").textContent =
+        "Guardar producto";
 }
 
-
-/* CANCELAR */
-function cancelarFormulario() {
-  limpiarFormulario();
-
-  document.getElementById("formulario").classList.add("oculto");
+function cerrarSesion() {
+    supabaseClient.auth.signOut();
 }
 
+document
+    .getElementById("btnCancelar")
+    ?.addEventListener("click", limpiarFormulario);
 
-/* INICIAR */
-document.addEventListener("DOMContentLoaded", () => {
-  verificarSesion();
+document
+    .getElementById("btnCerrarSesion")
+    ?.addEventListener("click", cerrarSesion);
+
+document
+    .getElementById("btnGuardar")
+    ?.addEventListener("click", guardarProducto);
+
+document
+    .getElementById("btnAgregarCategoria")
+    ?.addEventListener("click", agregarCategoria);
+
+async function iniciarAdmin() {
+    const {
+        data: { session }
+    } = await supabaseClient.auth.getSession();
+
+    if (!session) {
+        document.getElementById("login").style.display = "block";
+        document.getElementById("admin").style.display = "none";
+        return;
+    }
+
+    if (session.user.id !== ADMIN_UID) {
+        alert("No tenés permiso para entrar al panel.");
+
+        await supabaseClient.auth.signOut();
+
+        document.getElementById("login").style.display = "block";
+        document.getElementById("admin").style.display = "none";
+        return;
+    }
+
+    document.getElementById("login").style.display = "none";
+    document.getElementById("admin").style.display = "block";
+
+    await cargarCategorias();
+    await cargarProductos();
+}
+
+document
+    .getElementById("btnLogin")
+    ?.addEventListener("click", async () => {
+        const email = document.getElementById("email").value.trim();
+        const password =
+            document.getElementById("password").value;
+
+        if (!email || !password) {
+            alert("Completá el email y la contraseña.");
+            return;
+        }
+
+        const { error } =
+            await supabaseClient.auth.signInWithPassword({
+                email,
+                password
+            });
+
+        if (error) {
+            alert("Error al iniciar sesión: " + error.message);
+            return;
+        }
+
+        await iniciarAdmin();
+    });
+
+supabaseClient.auth.onAuthStateChange(() => {
+    iniciarAdmin();
 });
-</script>
 
+iniciarAdmin();
+
+</script>
 </body>
 </html>
