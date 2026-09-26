@@ -2,13 +2,10 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-
-<title>Ofertas | Alma Boho</title>
+<title>Ofertas | DuckStyle Mayorista</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -27,46 +24,35 @@ body {
     color: #222;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header {
     background: #111;
     color: white;
     text-align: center;
-    padding: 25px 15px;
+    padding: 30px 15px;
 }
 
 .logo {
-    text-align: center;
-    line-height: 1;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
-.alma {
-    font-family: "Allura", cursive;
-    font-size: 85px;
-    font-weight: normal;
-    line-height: 0.8;
-    margin-bottom: 12px;
-}
-
-.boho {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 8px;
-    margin-left: 8px;
-}
-
-header p {
-    margin-top: 8px;
+.logo span {
+    font-size: 18px;
+    display: block;
+    letter-spacing: 6px;
+    margin-top: 5px;
     color: #ccc;
 }
 
-/* =========================
-   NAVEGACIÓN
-========================= */
+header p {
+    margin-top: 12px;
+    color: #ccc;
+}
+
+/* NAV */
 
 nav {
     background: white;
@@ -79,29 +65,25 @@ nav {
     position: sticky;
     top: 0;
     z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 nav a {
     color: #222;
     text-decoration: none;
     font-weight: bold;
-    margin: 0 10px;
-}
-
-.carrito-nav {
-    color: #222;
-    background: transparent;
-    padding: 0;
-    border-radius: 0;
+    margin: 0 8px;
 }
 
 nav a:hover {
     opacity: 0.6;
 }
 
-/* =========================
-   CATÁLOGO
-========================= */
+.carrito-nav {
+    color: #222;
+}
+
+/* CONTENIDO */
 
 .catalogo {
     max-width: 1100px;
@@ -115,7 +97,7 @@ nav a:hover {
 }
 
 .titulo h2 {
-    font-size: 28px;
+    font-size: 30px;
     margin-bottom: 8px;
 }
 
@@ -123,9 +105,7 @@ nav a:hover {
     color: #777;
 }
 
-/* =========================
-   PRODUCTOS
-========================= */
+/* PRODUCTOS */
 
 .productos {
     display: grid;
@@ -149,13 +129,8 @@ nav a:hover {
     display: block;
 }
 
-.producto img:hover {
-    opacity: 0.9;
-}
-
 .producto-info {
     padding: 16px;
-    min-width: 0;
     overflow-wrap: anywhere;
 }
 
@@ -167,6 +142,12 @@ nav a:hover {
 .codigo {
     color: #888;
     font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.categoria {
+    color: #666;
+    font-size: 13px;
     margin-bottom: 8px;
 }
 
@@ -210,12 +191,7 @@ nav a:hover {
     font-weight: bold;
     font-size: 14px;
     min-width: 44px;
-    min-height: 44px;
     text-align: center;
-}
-
-.talle:hover {
-    opacity: 0.8;
 }
 
 .stock {
@@ -223,6 +199,8 @@ nav a:hover {
     font-size: 13px;
     color: #555;
 }
+
+/* CARGA */
 
 .cargando {
     text-align: center;
@@ -236,9 +214,7 @@ nav a:hover {
     padding: 30px;
 }
 
-/* =========================
-   FOTO GRANDE
-========================= */
+/* MODAL */
 
 .modal {
     display: none;
@@ -269,12 +245,9 @@ nav a:hover {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
-    line-height: 1;
 }
 
-/* =========================
-   CONTACTO
-========================= */
+/* CONTACTO */
 
 .contacto {
     background: white;
@@ -310,9 +283,7 @@ nav a:hover {
     font-weight: bold;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer {
     background: #111;
@@ -326,9 +297,7 @@ footer p {
     margin-top: 15px;
 }
 
-/* =========================
-   CELULAR
-========================= */
+/* CELULAR */
 
 @media (max-width: 500px) {
 
@@ -362,27 +331,16 @@ footer p {
         gap: 6px;
         padding: 12px;
     }
-
 }
 
 @media (max-width: 350px) {
 
-    header {
-        padding: 20px 12px;
-    }
-
-    .alma {
-        font-size: 76px;
-    }
-
     .productos {
         grid-template-columns: 1fr;
     }
-
 }
 
 </style>
-
 </head>
 
 <body>
@@ -390,14 +348,13 @@ footer p {
 <header>
 
 <div class="logo">
-    <div class="alma">Alma</div>
-    <div class="boho">BOHO</div>
+    DuckStyle
+    <span>MAYORISTA</span>
 </div>
 
-<p>Zapatos • Sandalias • Botas</p>
+<p>Todo lo que buscás, en un solo lugar 🛍️</p>
 
 </header>
-
 
 <nav>
 
@@ -427,17 +384,15 @@ Contacto
 
 </nav>
 
-
 <section class="catalogo">
 
 <div class="titulo">
 
 <h2>🔥 Ofertas</h2>
 
-<p>Encontrá nuestros productos con descuento.</p>
+<p>Productos con descuento y promociones especiales.</p>
 
 </div>
-
 
 <div class="productos" id="listaOfertas">
 
@@ -449,17 +404,16 @@ Cargando ofertas...
 
 </section>
 
-
 <section class="contacto">
 
 <h2>¿Te interesa algún producto?</h2>
 
 <p>
-Consultanos por disponibilidad, talles y colores.
+Consultanos por disponibilidad, colores y talles.
 </p>
 
 <a
-href="https://wa.me/5491140615513"
+href="https://wa.me/5491156266122"
 class="boton"
 target="_blank"
 >
@@ -469,7 +423,7 @@ target="_blank"
 <br>
 
 <a
-href="https://www.instagram.com/almaboho.arg/"
+href="https://www.instagram.com/duckstyle_imp?stkn=ZXN0MncxNTBsOWJs"
 class="instagram"
 target="_blank"
 >
@@ -478,23 +432,17 @@ target="_blank"
 
 </section>
 
-
 <footer>
 
 <h3>
-ALMA BOHO
+DUCKSTYLE MAYORISTA
 </h3>
 
 <p>
-© 2026 Alma Boho
+© 2026 DuckStyle Mayorista
 </p>
 
 </footer>
-
-
-<!-- =========================
-     MODAL FOTO
-========================= -->
 
 <div
 class="modal"
@@ -517,39 +465,25 @@ alt="Producto"
 
 </div>
 
-
 <script>
-
-/* =========================
-   FOTO GRANDE
-========================= */
-
-function abrirFoto(src) {
-
+    function abrirFoto(src) {
     document.getElementById("fotoGrande").src = src;
-
     document.getElementById("modalFoto").style.display = "flex";
-
 }
 
-
 function cerrarFoto(event) {
-
     if (
         !event ||
         event.target.id === "modalFoto" ||
         event.target.className === "cerrar"
     ) {
-
         document.getElementById("modalFoto").style.display = "none";
-
     }
-
 }
 
 
 /* =========================
-   CARGAR SOLO OFERTAS
+   CARGAR OFERTAS
 ========================= */
 
 async function cargarOfertas() {
@@ -557,68 +491,62 @@ async function cargarOfertas() {
     const contenedor =
         document.getElementById("listaOfertas");
 
-
     const { data, error } =
         await supabaseClient
-
-        .from("Productos")
-
-        .select("*")
-
-        .eq("Oferta", true)
-
-        .order("id", {
-            ascending: true
-        });
-
+            .from("Productos")
+            .select("*")
+            .eq("Oferta", true)
+            .order("created_at", {
+                ascending: false
+            });
 
     if (error) {
 
-        console.error(
-            "Error de Supabase:",
-            error
-        );
+        console.error("Error de Supabase:", error);
 
         contenedor.innerHTML = `
-
             <div class="error">
-
-                No se pudieron cargar
-                las ofertas.
-
+                No se pudieron cargar las ofertas.
             </div>
-
         `;
 
         return;
-
     }
-
 
     if (!data || data.length === 0) {
 
         contenedor.innerHTML = `
-
             <div class="cargando">
-
                 No hay ofertas disponibles.
-
             </div>
-
         `;
 
         return;
-
     }
-
 
     contenedor.innerHTML = "";
 
-
     data.forEach(producto => {
 
-        const talles =
-            producto.Talles || {};
+        /* =========================
+           Talles
+        ========================= */
+
+        let talles = {};
+
+        if (typeof producto.Talles === "string") {
+
+            try {
+                talles = JSON.parse(producto.Talles || "{}");
+            } catch {
+                talles = {};
+            }
+
+        } else {
+
+            talles = producto.Talles || {};
+
+        }
 
         const listaTalles =
             Object.entries(talles);
@@ -626,133 +554,154 @@ async function cargarOfertas() {
 
         let botonesTalles = "";
 
-
         listaTalles.forEach(
             ([talle, cantidad]) => {
 
-            if (Number(cantidad) > 0) {
+                if (Number(cantidad) > 0) {
 
-                const mensaje =
-                    `Hola, quiero consultar por el ${producto.Nombre} ${producto.Color}, talle ${talle}.`;
+                    const mensaje =
+                        `Hola, quiero consultar por ${producto.Nombre}${producto.Color ? " " + producto.Color : ""}, talle ${talle}.`;
 
+                    const whatsapp =
+                        "https://wa.me/5491156266122?text=" +
+                        encodeURIComponent(mensaje);
 
-                const whatsapp =
-                    "https://wa.me/5491140615513?text=" +
-                    encodeURIComponent(mensaje);
+                    botonesTalles += `
 
+                        <a
+                            class="talle"
+                            href="${whatsapp}"
+                            target="_blank"
+                        >
+                            ${talle}
+                        </a>
 
-                botonesTalles += `
-
-                    <a
-                        class="talle"
-                        href="${whatsapp}"
-                        target="_blank"
-                    >
-                        ${talle}
-                    </a>
-
-                `;
+                    `;
+                }
 
             }
-
-        });
-
-
-        let stockTexto = "";
+        );
 
 
-        if (listaTalles.length > 0) {
+        /* =========================
+           Stock
+        ========================= */
 
-            stockTexto =
-                listaTalles
-
+        const stockTexto =
+            listaTalles
                 .filter(
                     ([talle, cantidad]) =>
-                    Number(cantidad) > 0
+                        Number(cantidad) > 0
                 )
-
                 .map(
                     ([talle, cantidad]) =>
-                    `${talle} (${cantidad})`
+                        `${talle} (${cantidad})`
                 )
-
                 .join(" · ");
 
-        }
 
+        /* =========================
+           Precios
+        ========================= */
 
         const precio =
-            Number(producto.Precio)
-            .toLocaleString("es-AR");
+            Number(producto.Precio || 0)
+                .toLocaleString("es-AR");
 
+        const precioAnterior =
+            Number(producto.PrecioAnterior || 0)
+                .toLocaleString("es-AR");
+
+
+        /* =========================
+           Tarjeta
+        ========================= */
 
         const tarjeta =
             document.createElement("div");
 
-
-        tarjeta.className =
-            "producto";
-
+        tarjeta.className = "producto";
 
         tarjeta.innerHTML = `
 
             <img
-                src="${producto.Foto}"
-                alt="${producto.Nombre} ${producto.Color}"
+                src="${producto.Foto || ""}"
+                alt="${producto.Nombre || "Producto"}"
                 onclick="abrirFoto(this.src)"
             >
 
             <div class="producto-info">
 
                 <h3>
-                    ${producto.Nombre}
+                    ${producto.Nombre || "Sin nombre"}
                 </h3>
 
                 <div class="codigo">
-                    Código: ${producto.Codigo}
+                    Código: ${producto.Codigo || "-"}
                 </div>
+
+                ${
+                    producto.Categoria
+                    ? `
+                    <div class="categoria">
+                        Categoría: ${producto.Categoria}
+                    </div>
+                    `
+                    : ""
+                }
 
                 <div class="precio">
 
-                    <span class="precio-anterior">
-                        $${Number(producto.PrecioAnterior).toLocaleString("es-AR")}
-                    </span>
+                    ${
+                        Number(producto.PrecioAnterior) > 0
+                        ? `
+                        <span class="precio-anterior">
+                            $${precioAnterior}
+                        </span>
+                        `
+                        : ""
+                    }
 
                     $${precio}
 
                 </div>
 
-                <div class="datos">
+                ${
+                    producto.Color
+                    ? `
+                    <div class="datos">
+                        <strong>Color:</strong>
+                        ${producto.Color}
+                    </div>
+                    `
+                    : ""
+                }
 
-                    <strong>Color:</strong>
-                    ${producto.Color}
+                ${
+                    listaTalles.length > 0
+                    ? `
+                    <div class="talles">
 
-                </div>
+                        <p>
+                            Talles disponibles:
+                        </p>
 
-                <div class="talles">
+                        ${botonesTalles}
 
-                    <p>
-                        Elegí tu talle:
-                    </p>
+                    </div>
 
-                    ${botonesTalles}
-
-                </div>
-
-                <div class="stock">
-
-                    Stock: ${stockTexto || "Sin stock"}
-
-                </div>
+                    <div class="stock">
+                        Stock: ${stockTexto || "Sin stock"}
+                    </div>
+                    `
+                    : ""
+                }
 
             </div>
 
         `;
 
-
-        contenedor.appendChild(
-            tarjeta
-        );
+        contenedor.appendChild(tarjeta);
 
     });
 
@@ -770,7 +719,6 @@ function actualizarCantidadCarrito() {
             localStorage.getItem("carrito")
         ) || [];
 
-
     const cantidad =
         document.getElementById(
             "cantidadCarrito"
@@ -783,14 +731,10 @@ function actualizarCantidadCarrito() {
             0
         );
 
-
     if (cantidad) {
-
         cantidad.textContent =
             cantidadTotal;
-
     }
-
 }
 
 
@@ -803,8 +747,10 @@ cargarOfertas();
 actualizarCantidadCarrito();
 
 </script>
+
+
 <a
-    href="https://wa.me/5491140615513"
+    href="https://wa.me/5491156266122"
     class="whatsapp-flotante"
     target="_blank"
 >
@@ -812,28 +758,39 @@ actualizarCantidadCarrito();
 </a>
 
 <style>
+
 .whatsapp-flotante {
+
     position: fixed;
     right: 20px;
     bottom: 20px;
+
     width: 58px;
     height: 58px;
+
     background: #25D366;
     color: white;
+
     border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     text-decoration: none;
     font-size: 30px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.25);
+
     z-index: 9999;
 }
 
 .whatsapp-flotante:hover {
     transform: scale(1.08);
 }
-</style>
-</body>
 
+</style>
+
+</body>
 </html>
