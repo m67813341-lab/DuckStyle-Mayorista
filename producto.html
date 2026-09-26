@@ -6,9 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-
-<title>Producto | Alma Boho</title>
+<title>Producto | DuckStyle Mayorista</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -27,45 +25,34 @@ body {
     color: #222;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header {
     background: #111;
     color: white;
     text-align: center;
-    padding: 25px 15px;
+    padding: 28px 15px;
 }
 
-.logo {
-    text-align: center;
-    line-height: 1;
+.logo-principal {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 2px;
 }
 
-.alma {
-    font-family: "Allura", cursive;
-    font-size: 85px;
-    line-height: 0.8;
-    margin-bottom: 12px;
-}
-
-.boho {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 8px;
-    margin-left: 8px;
-}
-
-header p {
+.logo-secundario {
+    font-size: 16px;
+    letter-spacing: 7px;
     margin-top: 8px;
     color: #ccc;
 }
 
-/* =========================
-   NAVEGACIÓN
-========================= */
+header p {
+    margin-top: 12px;
+    color: #ccc;
+}
+
+/* NAV */
 
 nav {
     background: white;
@@ -78,26 +65,24 @@ nav {
     position: sticky;
     top: 0;
     z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 nav a {
     color: #222;
     text-decoration: none;
     font-weight: bold;
-    margin: 0 10px;
+    margin: 0 8px;
 }
 
 .carrito-nav {
-    display: inline-block;
     background: #111;
-    color: white;
+    color: white !important;
     padding: 8px 12px;
     border-radius: 7px;
 }
 
-/* =========================
-   PRODUCTO
-========================= */
+/* PRODUCTO */
 
 .producto-detalle {
     max-width: 1000px;
@@ -153,9 +138,7 @@ nav a {
     font-size: 16px;
 }
 
-/* =========================
-   TALLES
-========================= */
+/* TALLES */
 
 .talles {
     margin-top: 25px;
@@ -176,9 +159,7 @@ nav a {
     cursor: pointer;
 }
 
-/* =========================
-   CANTIDAD
-========================= */
+/* CANTIDAD */
 
 .cantidad {
     margin-top: 20px;
@@ -205,10 +186,6 @@ nav a {
     cursor: pointer;
 }
 
-.cantidad-control button:hover {
-    opacity: 0.8;
-}
-
 .cantidad-control input {
     width: 60px;
     height: 42px;
@@ -218,27 +195,23 @@ nav a {
     font-size: 18px;
 }
 
-/* =========================
-   STOCK
-========================= */
+/* STOCK */
 
 .stock {
     margin-top: 20px;
     color: #666;
 }
 
-/* =========================
-   BOTÓN CARRITO
-========================= */
+/* BOTONES */
 
 .agregar-carrito {
     display: block;
     width: 100%;
     margin-top: 25px;
-    background: white;
-    color: #111;
+    background: #111;
+    color: white;
     padding: 14px 22px;
-    border: 2px solid #111;
+    border: none;
     border-radius: 8px;
     font-weight: bold;
     font-size: 16px;
@@ -246,20 +219,15 @@ nav a {
 }
 
 .agregar-carrito:hover {
-    background: #111;
-    color: white;
+    opacity: 0.85;
 }
-
-/* =========================
-   WHATSAPP
-========================= */
 
 .whatsapp {
     display: inline-block;
     width: 100%;
     text-align: center;
     margin-top: 12px;
-    background: #111;
+    background: #25D366;
     color: white;
     padding: 14px 22px;
     border-radius: 8px;
@@ -267,13 +235,7 @@ nav a {
     font-weight: bold;
 }
 
-.whatsapp:hover {
-    opacity: 0.85;
-}
-
-/* =========================
-   VOLVER
-========================= */
+/* VOLVER */
 
 .volver {
     display: inline-block;
@@ -283,9 +245,7 @@ nav a {
     font-weight: bold;
 }
 
-/* =========================
-   ESTADOS
-========================= */
+/* ESTADOS */
 
 .cargando {
     text-align: center;
@@ -299,9 +259,7 @@ nav a {
     color: #b00020;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer {
     background: #111;
@@ -313,12 +271,10 @@ footer {
 
 footer p {
     color: #aaa;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
-/* =========================
-   WHATSAPP FLOTANTE
-========================= */
+/* WHATSAPP FLOTANTE */
 
 .whatsapp-flotante {
     position: fixed;
@@ -338,13 +294,7 @@ footer p {
     z-index: 9999;
 }
 
-.whatsapp-flotante:hover {
-    transform: scale(1.08);
-}
-
-/* =========================
-   CELULAR
-========================= */
+/* CELULAR */
 
 @media (max-width: 700px) {
 
@@ -365,26 +315,18 @@ footer p {
         font-size: 26px;
     }
 
-    nav a {
-        margin: 0 5px;
-        font-size: 14px;
-    }
-
     nav {
         gap: 6px;
         padding: 12px;
     }
 
-}
-
-@media (max-width: 350px) {
-
-    header {
-        padding: 20px 12px;
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
     }
 
-    .alma {
-        font-size: 76px;
+    .logo-principal {
+        font-size: 34px;
     }
 
 }
@@ -397,24 +339,19 @@ footer p {
 
 <header>
 
-<div class="logo">
+<div class="logo-principal">
+    DuckStyle
+</div>
 
-    <div class="alma">
-        Alma
-    </div>
-
-    <div class="boho">
-        BOHO
-    </div>
-
+<div class="logo-secundario">
+    MAYORISTA
 </div>
 
 <p>
-Zapatos • Sandalias • Botas
+Perfumes • Ropa • Accesorios • Electrónica y más
 </p>
 
 </header>
-
 
 <nav>
 
@@ -444,7 +381,6 @@ Contacto
 
 </nav>
 
-
 <section class="producto-detalle">
 
 <a
@@ -454,37 +390,27 @@ class="volver"
 ← Volver al catálogo
 </a>
 
-
 <div
 id="producto"
 class="cargando"
 >
-
 Cargando producto...
-
 </div>
 
 </section>
-
-
 <footer>
 
 <h3>
-ALMA BOHO
+DUCKSTYLE MAYORISTA
 </h3>
 
 <p>
-© 2026 Alma Boho
+© 2026 DuckStyle Mayorista
 </p>
 
 </footer>
 
-
 <script>
-
-/* =========================
-   VARIABLES
-========================= */
 
 let productoActual = null;
 
@@ -504,30 +430,52 @@ function obtenerCarrito() {
 
 function actualizarCantidadCarrito() {
 
-    const carrito =
-        obtenerCarrito();
+    const carrito = obtenerCarrito();
 
-    const cantidad =
-        carrito.reduce(
-            (total, producto) =>
-                total + Number(producto.cantidad || 1),
-            0
-        );
+    const cantidad = carrito.reduce(
+        (total, producto) =>
+            total + Number(producto.cantidad || 1),
+        0
+    );
 
     const elemento =
-        document.getElementById(
-            "cantidadCarrito"
-        );
+        document.getElementById("cantidadCarrito");
 
     if (elemento) {
-
-        elemento.textContent =
-            cantidad;
-
+        elemento.textContent = cantidad;
     }
 
 }
 
+
+/* =========================
+   CANTIDAD
+========================= */
+
+function cambiarCantidad(valor) {
+
+    const input =
+        document.getElementById(
+            "cantidadSeleccionada"
+        );
+
+    let cantidad =
+        Number(input.value) || 1;
+
+    cantidad += valor;
+
+    if (cantidad < 1) {
+        cantidad = 1;
+    }
+
+    input.value = cantidad;
+
+}
+
+
+/* =========================
+   AGREGAR AL CARRITO
+========================= */
 
 function agregarAlCarrito() {
 
@@ -538,7 +486,6 @@ function agregarAlCarrito() {
         );
 
         return;
-
     }
 
 
@@ -563,7 +510,6 @@ function agregarAlCarrito() {
         );
 
         return;
-
     }
 
 
@@ -577,15 +523,16 @@ function agregarAlCarrito() {
         );
 
         return;
-
     }
+
+
+    const talles =
+        productoActual.Talles || {};
 
 
     const stockDisponible =
         Number(
-            productoActual.Talles[
-                talleSeleccionado
-            ]
+            talles[talleSeleccionado] || 0
         );
 
 
@@ -599,7 +546,6 @@ function agregarAlCarrito() {
         );
 
         return;
-
     }
 
 
@@ -607,37 +553,78 @@ function agregarAlCarrito() {
         obtenerCarrito();
 
 
-    const productoCarrito = {
+    /*
+       Si el mismo producto y talle
+       ya están en el carrito,
+       sumamos la cantidad.
+    */
 
-        id:
-            productoActual.id,
-
-        nombre:
-            productoActual.Nombre,
-
-        color:
-            productoActual.Color,
-
-        precio:
-            Number(
-                productoActual.Precio
-            ),
-
-        foto:
-            productoActual.Foto,
-
-        talle:
-            talleSeleccionado,
-
-        cantidad:
-            cantidadSeleccionada
-
-    };
+    const existente =
+        carrito.find(
+            producto =>
+                String(producto.id) ===
+                    String(productoActual.id) &&
+                producto.talle ===
+                    talleSeleccionado
+        );
 
 
-    carrito.push(
-        productoCarrito
-    );
+    if (existente) {
+
+        const nuevaCantidad =
+            Number(existente.cantidad || 1) +
+            cantidadSeleccionada;
+
+
+        if (
+            nuevaCantidad >
+            stockDisponible
+        ) {
+
+            alert(
+                `⚠️ Ya tenés ${existente.cantidad} en el carrito. Solo hay ${stockDisponible} disponible(s).`
+            );
+
+            return;
+        }
+
+
+        existente.cantidad =
+            nuevaCantidad;
+
+    } else {
+
+        carrito.push({
+
+            id:
+                productoActual.id,
+
+            nombre:
+                productoActual.Nombre,
+
+            codigo:
+                productoActual.Codigo,
+
+            color:
+                productoActual.Color,
+
+            precio:
+                Number(
+                    productoActual.Precio
+                ),
+
+            foto:
+                productoActual.Foto,
+
+            talle:
+                talleSeleccionado,
+
+            cantidad:
+                cantidadSeleccionada
+
+        });
+
+    }
 
 
     localStorage.setItem(
@@ -657,48 +644,13 @@ function agregarAlCarrito() {
 
 
 /* =========================
-   CAMBIAR CANTIDAD
-========================= */
-
-function cambiarCantidad(valor) {
-
-    const input =
-        document.getElementById(
-            "cantidadSeleccionada"
-        );
-
-
-    let cantidad =
-        Number(
-            input.value
-        ) || 1;
-
-
-    cantidad += valor;
-
-
-    if (cantidad < 1) {
-
-        cantidad = 1;
-
-    }
-
-
-    input.value =
-        cantidad;
-
-}
-
-
-/* =========================
-   OBTENER ID DEL PRODUCTO
+   ID DEL PRODUCTO
 ========================= */
 
 const parametros =
     new URLSearchParams(
         window.location.search
     );
-
 
 const id =
     parametros.get("id");
@@ -730,20 +682,15 @@ async function cargarProducto() {
         `;
 
         return;
-
     }
 
 
     const { data, error } =
         await supabaseClient
-
-        .from("Productos")
-
-        .select("*")
-
-        .eq("id", id)
-
-        .single();
+            .from("Productos")
+            .select("*")
+            .eq("id", id)
+            .single();
 
 
     if (error || !data) {
@@ -766,7 +713,6 @@ async function cargarProducto() {
         `;
 
         return;
-
     }
 
 
@@ -775,19 +721,53 @@ async function cargarProducto() {
 
 
     /* =========================
-       TALLES
+       CONVERTIR TALLES
     ========================= */
 
-    const talles =
-        productoActual.Talles || {};
+    let talles = {};
+
+
+    if (
+        typeof productoActual.Talles ===
+        "string"
+    ) {
+
+        try {
+
+            talles =
+                JSON.parse(
+                    productoActual.Talles ||
+                    "{}"
+                );
+
+        } catch {
+
+            talles = {};
+
+        }
+
+    } else {
+
+        talles =
+            productoActual.Talles ||
+            {};
+
+    }
+
+
+    productoActual.Talles =
+        talles;
 
 
     const listaTalles =
         Object.entries(talles);
 
 
-    let opcionesTalles =
-        "";
+    /* =========================
+       OPCIONES DE TALLES
+    ========================= */
+
+    let opcionesTalles = "";
 
 
     listaTalles.forEach(
@@ -818,20 +798,16 @@ async function cargarProducto() {
     ========================= */
 
     const stockTexto =
-
         listaTalles
-
-        .filter(
-            ([talle, cantidad]) =>
-            Number(cantidad) > 0
-        )
-
-        .map(
-            ([talle, cantidad]) =>
-            `${talle} (${cantidad})`
-        )
-
-        .join(" · ");
+            .filter(
+                ([talle, cantidad]) =>
+                    Number(cantidad) > 0
+            )
+            .map(
+                ([talle, cantidad]) =>
+                    `${talle} (${cantidad})`
+            )
+            .join(" · ");
 
 
     /* =========================
@@ -840,31 +816,35 @@ async function cargarProducto() {
 
     const precio =
         Number(
-            productoActual.Precio
-        )
-        .toLocaleString(
+            productoActual.Precio || 0
+        ).toLocaleString(
             "es-AR"
         );
 
 
-    const precioAnterior =
+    let precioAnterior = "";
 
+
+    if (
         productoActual.Oferta &&
-        productoActual.PrecioAnterior
+        Number(
+            productoActual.PrecioAnterior || 0
+        ) > 0
+    ) {
 
-        ?
+        precioAnterior = `
 
-        `<span class="precio-anterior">
-            $${Number(
-                productoActual.PrecioAnterior
-            ).toLocaleString(
-                "es-AR"
-            )}
-        </span>`
+            <span class="precio-anterior">
 
-        :
+                $${Number(
+                    productoActual.PrecioAnterior
+                ).toLocaleString("es-AR")}
 
-        "";
+            </span>
+
+        `;
+
+    }
 
 
     /* =========================
@@ -880,8 +860,8 @@ async function cargarProducto() {
         <div>
 
             <img
-                src="${productoActual.Foto}"
-                alt="${productoActual.Nombre} ${productoActual.Color}"
+                src="${productoActual.Foto || ""}"
+                alt="${productoActual.Nombre || "Producto"}"
                 class="producto-imagen"
             >
 
@@ -891,14 +871,14 @@ async function cargarProducto() {
         <div class="producto-info">
 
             <h1>
-                ${productoActual.Nombre}
+                ${productoActual.Nombre || "Producto"}
             </h1>
 
 
             <div class="codigo">
 
                 Código:
-                ${productoActual.Codigo}
+                ${productoActual.Codigo || "Sin código"}
 
             </div>
 
@@ -915,10 +895,21 @@ async function cargarProducto() {
             <div class="dato">
 
                 <strong>
+                    Categoría:
+                </strong>
+
+                ${productoActual.Categoria || "Sin categoría"}
+
+            </div>
+
+
+            <div class="dato">
+
+                <strong>
                     Color:
                 </strong>
 
-                ${productoActual.Color}
+                ${productoActual.Color || "No especificado"}
 
             </div>
 
@@ -943,9 +934,11 @@ async function cargarProducto() {
                         opcionesTalles ||
 
                         `
+
                         <option value="">
                             Sin talles disponibles
                         </option>
+
                         `
                     }
 
@@ -1011,7 +1004,7 @@ async function cargarProducto() {
 
 
             <a
-                href="https://wa.me/5491140615513"
+                href="https://wa.me/5491156266122"
                 target="_blank"
                 class="whatsapp"
             >
@@ -1037,7 +1030,7 @@ cargarProducto();
 
 
 <a
-    href="https://wa.me/5491140615513"
+    href="https://wa.me/5491156266122"
     class="whatsapp-flotante"
     target="_blank"
 >
